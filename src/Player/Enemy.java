@@ -10,6 +10,7 @@ public class Enemy{
     private final String name = "enemy";
     private Board board;
     private List<int[]> attacks = new ArrayList<>();
+    private char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
     private int[] generateRandomNumbers(){
         Random rand = new Random();
@@ -51,9 +52,13 @@ public class Enemy{
             aux = generateRandomNumbers();
         }
 
-        System.out.printf("ATAQUE REALIZADO NAS COORDENADAS %d %d\n", aux[0], aux[1]);
+        System.out.printf("ATAQUE REALIZADO NAS COORDENADAS %s %d\n", transformIntToChar(aux[0]), aux[1]);
 
         return aux;
+    }
+
+    public char transformIntToChar(int num){
+        return letters[num];
     }
 
     public void receiveAttack(int[] coordinates){

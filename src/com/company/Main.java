@@ -3,6 +3,8 @@ package com.company;
 import Player.Player;
 import Player.Enemy;
 
+import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,17 +18,12 @@ public class Main {
         int turn = 1;
 
         System.out.println("BEM VINDO(A) AO JOGO DE BATALHA NAVAL");
-        System.out.println("INSIRA SEU NOME PARA DAR INICIO AO JOGO");
+        System.out.println("INSIRA SEU NOME PARA DAR INICIO AO JOGO:");
         playerName = sc.next();
 
         for (int i = 0; i < 2; i++) {
-            System.out.printf("INSIRA AS COORDENADAS (0,9) (0,9) DO NAVIO %d\n", i+1);
-            int[] aux = new int[2];
-            for (int j = 0; j < 2; j++) {
-                aux[j] = sc.nextInt();
-            }
-            ships.add(aux);
-            sc.nextLine();
+            System.out.printf("\nINSIRA AS COORDENADAS DO NAVIO %d\n", i+1);
+            ships.add(transformLetterToInt());
         }
 
         Player player = new Player(playerName, ships);
@@ -39,15 +36,8 @@ public class Main {
             // Player turn
             if(turn == 1){
                 System.out.println("\nSUA VEZ DE ATACAR");
-                System.out.println("INSIRA AS COORDENADAS (0,9) (0,9) QUE DESEJA REALIZAR O ATAQUE");
-
-                int[] aux = new int[2];
-
-                for (int i = 0; i < 2; i++) {
-                    aux[i] = sc.nextInt();
-                }
-
-                enemy.receiveAttack(aux);
+                System.out.printf("\nINSIRA AS COORDENADAS DO ATAQUE\n");
+                enemy.receiveAttack(transformLetterToInt());
                 turn = 0;
             }
 
@@ -62,4 +52,30 @@ public class Main {
             }
         }
     }
+
+    private static int[] transformLetterToInt(){
+        Scanner sc = new Scanner(System.in);
+        char[] listOfLetter = new char[2];
+        for (int j = 0; j < 2; j++) {
+            if(j == 0) System.out.println("LETRA (A, B, C, D, E, F, G, H, I, J): "); else System.out.println("Número (0, 1, 2, 3, 4, 5, 6, 7, 8, 9):");
+            String word = sc.next().toUpperCase();
+            listOfLetter[j] = word.charAt(0);
+        }
+        sc.nextLine();
+
+        int countTry = 0;
+        char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+        int[] coordinatesNumbers = new int[2];
+        while (countTry < letters.length){
+            if(letters[countTry] == listOfLetter[0]){
+                coordinatesNumbers[0] = countTry;
+                break;
+            }
+            countTry++;
+        }
+        int num = Character.getNumericValue(listOfLetter[1]);
+        coordinatesNumbers[1] = num;
+        return coordinatesNumbers;
+    }
+
 }
