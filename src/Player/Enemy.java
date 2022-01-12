@@ -45,11 +45,9 @@ public class Enemy{
 
         if(attacks.size() == 0){
             attacks.add(aux);
-
-            return aux;
         }
 
-        while(attacks.contains(aux)){
+        while(attacks.contains(aux) && attacks.size() != 0){
             aux = generateRandomNumbers();
         }
 
