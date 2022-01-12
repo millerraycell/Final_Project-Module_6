@@ -12,7 +12,7 @@ public class Enemy{
     private List<int[]> attacks = new ArrayList<>();
     private char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 
-    private int[] generateRandomNumbers(){
+    public static int[] generateRandomNumbers(){
         Random rand = new Random();
 
         int valueX = rand.nextInt(10);
@@ -36,7 +36,8 @@ public class Enemy{
             ships.add(aux);
         }
 
-        board = new Board(this.name, ships);
+        String name = "enemy";
+        board = new Board(name, ships);
     }
 
     public int[] attack() {
