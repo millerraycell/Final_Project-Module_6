@@ -1,4 +1,4 @@
-package Player;
+package Pessoa;
 
 import Board.Board;
 
@@ -6,11 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Enemy{
-    private final String name = "enemy";
+public class Player {
+    private String name;
     private Board board;
     private List<int[]> attacks = new ArrayList<>();
-    private char[] letters = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    protected static List<int[]> ships = new ArrayList<>(10);
+
+    public Player(String name, List<int[]> ships){
+        this.name = name;
+        this.ships = ships;
+        board = new Board(name, ships);
+    }
+
+    public Player(String name){
+        this.name = name;
+        this.ships = generateShips();
+        board = new Board(name, ships);
+    }
 
     public static int[] generateRandomNumbers(){
         Random rand = new Random();
@@ -21,9 +33,7 @@ public class Enemy{
         return new int[]{valueX, valueY};
     }
 
-    public Enemy() {
-        List<int[]> ships = new ArrayList<>(10);
-
+    public static List<int[]> generateShips(){
         ships.add(generateRandomNumbers());
 
         for (int i = 1; i < 10; i++) {
@@ -35,37 +45,15 @@ public class Enemy{
 
             ships.add(aux);
         }
-
-        String name = "enemy";
-        board = new Board(name, ships);
-    }
-
-    public int[] attack() {
-        int[] aux = generateRandomNumbers();
-
-        if(attacks.size() == 0){
-            attacks.add(aux);
-        }
-
-        while(attacks.contains(aux) && attacks.size() != 0){
-            aux = generateRandomNumbers();
-        }
-
-        System.out.printf("ATAQUE REALIZADO NAS COORDENADAS %s %d\n", transformIntToChar(aux[0]), aux[1]);
-
-        return aux;
-    }
-
-    public char transformIntToChar(int num){
-        return letters[num];
-    }
-
-    public void receiveAttack(int[] coordinates){
-        board.attack(coordinates);
+        return ships;
     }
 
     public void showBoard(){
         board.showBoard();
+    }
+
+    public void receiveAttack(int[] coordinates){
+        board.attack(coordinates);
     }
 
     public int end(){
