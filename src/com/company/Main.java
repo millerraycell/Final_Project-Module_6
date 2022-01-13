@@ -1,45 +1,16 @@
 package com.company;
 
-import Player.Player;
-import Player.Enemy;
+import Pessoa.Inimigo;
+import Pessoa.Jogador;
 
-import java.io.Console;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Player.Enemy.generateRandomNumbers;
-
 public class Main {
-
-    static List<int[]> ships = new ArrayList<>(10);
-
-    public static void method1() {
-        Scanner sc = new Scanner(System.in);
-
-        for (int i = 0; i < 10; i++) {
-            System.out.printf("\nINSIRA AS COORDENADAS DO NAVIO %d\n", i+1);
-            ships.add(transformLetterToInt());
-        }
-    }
-
-    public static void method2() {
-        generateRandomNumbers();
-        ships.add(generateRandomNumbers());
-
-        for (int i = 1; i < 10; i++) {
-            int[] aux = generateRandomNumbers();
-
-            while(ships.contains(aux)){
-                aux = generateRandomNumbers();
-            }
-            ships.add(aux);
-        }
-    }
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Jogador player;
         String playerName;
         int turn = 1;
 
@@ -55,19 +26,24 @@ public class Main {
 
         switch(method) {
             case 1:
-                method1();
+                List<int[]> ships = new ArrayList<>(10);
+                for (int i = 0; i < 10; i++) {
+                    System.out.printf("\nINSIRA AS COORDENADAS DO NAVIO %d\n", i+1);
+                    ships.add(transformLetterToInt());
+                }
+
+                player = new Jogador(playerName, ships);
                 break;
 
             case 2:
-                method2();
+                player = new Jogador(playerName);
                 break;
 
             default:
                 throw new IllegalArgumentException("Invalid method: " + method);
         }
 
-        Player player = new Player(playerName, ships);
-        Enemy enemy = new Enemy();
+        Inimigo enemy = new Inimigo();
 
         System.out.println("SEU TABULEIRO");
         player.showBoard();
