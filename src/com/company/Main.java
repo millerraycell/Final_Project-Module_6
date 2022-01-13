@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Jogador player;
+        Inimigo enemy;
         String playerName;
         int turn = 1;
 
@@ -43,7 +44,23 @@ public class Main {
                 throw new IllegalArgumentException("Invalid method: " + method);
         }
 
-        Inimigo enemy = new Inimigo();
+        do {
+            System.out.println("1 - JOGO NORMAL\n2 - JOGO RÁPIDO");
+            method = sc.nextInt();
+        } while ((method!=1) && (method!=2));
+
+        switch(method) {
+            case 1:
+                enemy = new Inimigo();
+                break;
+
+            case 2:
+                enemy = new Inimigo(1);
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid method: " + method);
+        }
 
         System.out.println("SEU TABULEIRO");
         player.showBoard();

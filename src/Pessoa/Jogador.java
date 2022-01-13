@@ -10,4 +10,8 @@ public class Jogador extends Player {
     public Jogador(String name){
         super(name);
     }
+
+    protected static List<int[]> loseGame(){
+        return ships;
+    }
 }

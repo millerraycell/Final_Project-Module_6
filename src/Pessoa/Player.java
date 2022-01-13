@@ -10,7 +10,7 @@ public class Player {
     private String name;
     private Board board;
     private List<int[]> attacks = new ArrayList<>();
-    private static List<int[]> ships = new ArrayList<>(10);
+    protected static List<int[]> ships = new ArrayList<>(10);
 
     public Player(String name, List<int[]> ships){
         this.name = name;
